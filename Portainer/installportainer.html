@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Rasberry PI 4 install portainer</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="application-name" content="html"/>
+    <meta name="description" content="Rasberry PI install and setup portainer"/>
+    <meta charset="UTF-8"/>
+    <Head>
+
+    </Head>
+    <body>
+        <h1><span id="Install_Portainer_with_Docker">Install Portainer with Docker</span></h1>
+<p>Run the following command in the terminal:
+</p>
+<div dir="ltr"><div><pre ><span >su</span> root
+<span >cd</span> $<span >&#40;</span><span >readlink</span> <span >-f</span> <span >/</span>srv<span >/</span>dev-disk-by-uuid-<span >*/</span>docker-app<span >&#41;</span>
+<span >mkdir</span> portainer
+<span >cd</span> portainer
+<span >mkdir</span> data
+&#160;
+docker run <span >-d</span> \
+  <span >--name</span> portainer \
+  <span >--restart</span>=always \
+  <span >-e</span> <span >TZ</span>=Asia<span >/</span>Shanghai \
+  <span >-p</span> <span >8000</span>:<span >8000</span> \
+  <span >-p</span> <span >9000</span>:<span >9000</span> \
+  <span >-v</span> <span >/</span>var<span >/</span>run<span >/</span>docker.sock:<span >/</span>var<span >/</span>run<span >/</span>docker.sock \
+  <span >-v</span> <span >$PWD</span><span >/</span>data:<span >/</span>data \
+  portainer<span >/</span>portainer-ce:latest</pre></div></div>
+<p>After completing the setup, you can access the Portainer web interface by opening a web browser and navigating to <a rel="nofollow" target="_blank"  href="http://YourIPAddress:9000/">http://YourIPAddress:9000/</a> (replace YourIPAddress with the actual IP address of your device). The default administrator account username and password are both "admin".
+</p>
+<p><h1> Same can be achived using a docker compose file and setup from OMV compose plugin</h1>
+<code>
+    version: "3.6"<br>
+    services:<br>
+    &#9;agent:<br>
+    &#9;&#9;image: portainer/agent<br>
+    &#9;&#9;volumes:<br>
+    &#9;&#9;&#9;- /var/run/docker.sock:/var/run/docker.sock<br>
+    &#9;&#9;&#9;- /srv/usb8tbmnt/docker/compose/portainer/volumes:/var/lib/docker/volumes<br>
+    &#9;&#9;ports:<br>
+    &#9;&#9;&#9;- "9001:9001/tcp"<br>
+    &#9;portainer:<br>
+    &#9;&#9;container_name: "portainer"<br>
+    &#9;&#9;image: "portainer/portainer-ce"<br>
+    &#9;&#9;ports:<br>
+    &#9;&#9;&#9;- "8000:8000/tcp"<br>
+    &#9;&#9;&#9;- "9000:9000/tcp"<br>
+    &#9;&#9;restart: "always"<br>
+    &#9;&#9;volumes:<br>
+    &#9;&#9;&#9;- "portainer_data:/data"<br>
+    &#9;&#9;&#9;- "/var/run/docker.sock:/var/run/docker.sock"<br>
+    &#9;volumes:<br>
+    &#9;&#9;portainer_data:<br>
+    </code>
+</p>
+    </body>

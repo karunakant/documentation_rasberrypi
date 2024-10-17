@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Raspberry Pi tutorial setup OpenMediaVault software</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="application-name" content="html"/>
+    <meta name="description" content="to make changes run omv-firstaid"/>
+    <meta charset="UTF-8"/>
+
+</head>
+
+<body>
+    <h1>Getting Started with OpenMediaVault</h1>
+    <h2><span id="Find_IP_Address">Find IP Address</span></h2>
+<p>you can use the "ping" command to obtain the IP address:
+</p>
+<div dir="ltr" ><div ><pre ><span >ping</span> openmediavault</pre></div></div>
+<h2><span id="Access_the_OpenMediaVault_web_page"> Access the OpenMediaVault web page</span></h2>
+<p>Type the URL <a rel="nofollow" target="_blank" class="external free" href="http://openmediavault/">http://openmediavault/</a> or the IP address to your web browser, the default login account is:
+</p>
+<div dir="ltr" ><div ><pre >Username: admin
+Password: openmediavault</pre></div></div>
+<h2><span id="Change_admin_password">Change admin password</span></h2>
+<p>Click on the profile icon in the upper-right corner of the web page, then select <b>"Change Password"</b>.
+</p>
+<h2><span id="Configure_the_web_page_timeout_duration"> Configure the web page timeout duration</span></h2>
+<p>Go to <b>System -&gt; Workbench</b> and adjust the <b>"Auto Logout"</b> time setting.
+</p>
+<h2><span id="Linux_default_passwords"> Linux default passwords</span></h2>
+<p>Regular Account:<br />
+&#160;&#160;&#160;&#160;User Name: pi<br />
+&#160;&#160;&#160;&#160;Password: pi<br />
+<br />
+Root:<br />
+&#160;&#160;&#160;&#160;User Name: root<br />
+&#160;&#160;&#160;&#160;Password: fa<br />
+</p>
+<h2><span id="Root_Login_via_SSH"> Root Login via SSH</span></h2>
+<div dir="ltr" ><div ><pre ><span >ssh</span> pi<span class="sy0">@</span>YourIPAddress</pre></div></div>
+<p>The default password is <b>"pi"</b>.
+</p>
+<h2><span id="Change_the_passwords"> Change the passwords</span></h2>
+<div dir="ltr" ><div ><pre ><span >sudo</span> <span >passwd</span> root
+<span >sudo</span> <span >passwd</span> pi</pre></div></div>
+<h2><span id="Configuring_the_network_and_time_zone"> Configuring the network and time zone</span></h2>
+<p>Login to your OMV via SSH as root user:
+</p>
+<div dir="ltr" ><div ><pre ><span >ssh</span> root<span class="sy0">@</span>IPAddress</pre></div></div>
+<p>Excute the following command:
+</p>
+<div dir="ltr" ><div ><pre >omv-firstaid</pre></div></div>
+<p>Something like this should appear:<br />
+<img alt="Omv-firstaid.png" src="./img/Omv-firstaid.png" width="400" height="228" />
+</p>
+<h1>for more details visit here <a href="https://wiki.friendlyelec.com/wiki/index.php/Getting_Started_with_OpenMediaVault">More details ...</a></h1>
+</body>
+</html>

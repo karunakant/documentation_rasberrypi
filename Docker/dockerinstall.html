@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Rasberry PI 4 install docker</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="application-name" content="html"/>
+    <meta name="description" content="install docker"/>
+    <meta charset="UTF-8"/>
+    <Head>
+
+    </Head>
+    <body>
+<h2><span  id="Docker_on_OMV">Docker on OMV</span></h2>
+<h3><span  id="Install_Docker"> Install Docker</span></h3>
+<ul><li> Go to <b>System -&gt; Plugins</b>, search for and install the <b>openmediavault-compose</b> plugin, then refresh the page after installation.</li>
+<li> Go to <b>Services -&gt; Compose -&gt; Settings</b>, scroll down to the bottom of the page, and click on <b>Reinstall Docker</b> to install Docker.</li></ul>
+<h3><span  id="Moving_docker_storage"><span >17.2</span> Moving docker storage</span></h3>
+<p>First, install the openmediavault-compose plugin, login via SSH and excute the following command:
+</p>
+<div dir="ltr" <div ><pre ><span >sudo</span> apt update
+<span >sudo</span> apt <span >install</span> <span >-y</span> openmediavault-compose</pre></div></div>
+<p>After refreshing the page，go to <b>Storage -&gt; Shared Folders</b>, and click the <b>"+"</b> icon to create three folders, namely:
+</p>
+<div dir="ltr" <div ><pre >docker            -<span >&gt;</span> The Docker data directory, defined <span >in</span> <span >/</span>etc<span >/</span>docker<span >/</span>daemon.json
+docker-compose    -<span >&gt;</span> Location of compose files
+docker-data       -<span >&gt;</span> Location of persistent container data
+docker-app        -<span >&gt;</span> For personal use, storing Dockerfiles and data</pre></div></div>
+<p>Go to <b>Services -&gt; Compose</b> enter the <b>"Settings"</b> interface, and configure the "Shared folder" for "Compose Files" and "Data":<br />
+Access the SSH terminal and execute the following command to move Docker data to the shared folder, where "/srv/dev-disk-by-uuid-XXYYZZ/docker" represents the absolute path of the shared folder, which can be obtained from the "Storage" -&gt; "Shared Folders" list on the web interface：
+</p>
+<div dir="ltr" <div ><pre ><span >su</span> root
+systemctl stop docker.socket docker.service
+<span >mv</span> <span >/</span>var<span >/</span>lib<span >/</span>docker<span >/*</span> <span >/</span>srv<span >/</span>dev-disk-by-uuid-XXYYZZ<span >/</span>docker<span >/</span></pre></div></div>
+<p>On the web interface, set the <b>"Docker storage"</b> to the absolute path of the "docker" shared folder. save the settings and apply, and then reboot the system.<br />
+<br />The final value filled on the Gui:<br />
+</p>
+<div dir="ltr" <div ><pre >Compose Files's Shared folder  -&gt; on /dev/md0, docker-compose
+Data's Shared folder           -&gt; on /dev/md0, docker-data
+Docker's Docker storage        -&gt; on /srv/dev-disk-by-uuid-XXYYZZ/docker/</pre></div></div>
+</p>
+</body>
+</html>
